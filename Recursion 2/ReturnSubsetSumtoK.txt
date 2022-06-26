@@ -22,3 +22,43 @@ Sample Output:
 15 20 
 15 20 12 
 
+
+public class solution {
+
+	// Return a 2D array that contains all the subsets which sum to k
+	public static int[][] subsetsSumK(int input[], int k) {
+		// Write your code here
+       return subsetK(input,k,0); 
+    }
+    
+    public static int[][] subsetK(int[] input, int target, int index){
+        if(index==input.length){
+            if(target==0){
+                int[][] output=new int[1][0];
+            	return output;
+            }
+            else{
+                int[][] output=new int[0][0];
+            	return output;
+            }
+        }
+        int[][] small1=subsetK(input,target,index+1);
+        int[][] small2=subsetK(input,target-input[index],index+1);
+        int[][] output=new int[small1.length+small2.length][];
+        int k=0;
+        for(int i=0;i<small1.length;i++){
+            output[k]=small1[i];
+            k++;
+        }
+        for(int i=0;i<small2.length;i++){
+            output[k]=new int[small2[i].length+1];
+            output[k][0]=input[index];
+            for(int j=1;j<=small2[i].length;j++){
+                output[k][j]=small2[i][j-1];
+            }
+            k++;
+        }
+        return output;
+        
+    }
+}
