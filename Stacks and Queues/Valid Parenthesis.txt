@@ -1,0 +1,103 @@
+Problem Statement
+You're given string ‘STR’ consisting solely of “{“, “}”, “(“, “)”, “[“ and “]” . Determine whether the parentheses are balanced.
+Input Format:
+The first line contains an Integer 'T' which denotes the number of test cases or queries to be run. Then the test cases follow.
+
+The first and the only line of input of each test case contains a string, as described in the task.
+Output Format :
+For each test case, the first and the only line of output prints whether the string or expression is balanced or not.
+
+The output of every test case is printed in a separate line.
+Note:
+You are not required to print anything explicitly. It has already been taken care of. Just implement the given function.
+Constraints:
+1 <= T <= 10
+1 <= N <= 10^5
+
+Where N is the length of the input string or expression.
+
+Time Limit: 1 sec
+Sample Input 1 :
+2
+[()]{}{[()()]()}
+[(])
+Sample Output 1 :
+Balanced
+Not Balanced
+Explanation Of The Sample Input 1 :
+In TestCase 1 there is always an opening brace before a closing brace i.e ‘{‘ before ‘}’, ‘(‘ before ‘)’, ‘[‘ before ‘]’.
+
+In TestCase 2 there is closing brace for ‘[‘ i.e. ‘]’ before closing brace for ‘(‘ i.e. ‘)’. The balanced sequence should be ‘[()]’.
+Sample Input 2 :
+2
+[[}[
+[]{}()
+Sample Output 2 :
+Not Balanced
+Balanced
+Explanation Of The Sample Input 2 :
+In TestCase 1 there is no opening brace before a closing brace i.e no ‘{‘ for ‘}’.
+
+In TestCase 2 there is exactly one closing for each opening braces and each closing brace is after their corresponding opening brace.
+
+
+import java.util.Stack;
+public class Solution {
+    public static boolean isValidParenthesis(String expression) {
+        // Write your code here.
+        Stack<Character> st = new Stack<>();
+        for(int i=0;i<expression.length();i++){
+            if(expression.charAt(i) == '(' || expression.charAt(i) == '{' || expression.charAt(i) == '['){
+                st.push(expression.charAt(i));
+            }
+            else if (expression.charAt(i) == ')'){
+                if(st.isEmpty()){
+                    return false;
+                }
+                char top = st.pop();
+                if(top == '('){
+                    continue;
+                }
+                else{
+                    return false;
+                    
+                }
+            }
+            else if (expression.charAt(i) == '}'){
+                if(st.isEmpty()){
+                    return false;
+                }
+                char top = st.pop();
+                if(top == '{'){
+                    continue;
+                }
+                else{
+                    return false;
+                    
+                }
+            }
+            else if (expression.charAt(i) == ']'){
+                if(st.isEmpty()){
+                    return false;
+                }
+                char top = st.pop();
+                if(top == '['){
+                    continue;
+                }
+                else{
+                    return false;
+                    
+                }
+            }
+            else{
+                continue;
+            }
+        }
+        if(st.isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
