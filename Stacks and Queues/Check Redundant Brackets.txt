@@ -32,3 +32,54 @@ Sample Input 2:
 Sample Output 2:
 false
 
+
+import java.util.ArrayList;
+import java.util.Stack;
+public class Solution 
+{
+    public static boolean findRedundantBrackets(String s) 
+    {
+        // Write your code here.
+        Stack<Character> stack = new Stack<>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i) == '('){
+                stack.push(s.charAt(i));
+            }
+            else if(s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/'){
+                stack.push(s.charAt(i));
+            }
+            else if (s.charAt(i) == ')'){
+                if(stack.peek() == '('){
+                    return true;
+                }
+                while(stack.peek() != '('){
+                    stack.pop();
+                }
+                stack.pop();
+            }
+            else{
+                continue;
+            }
+        }
+        if(stack.isEmpty()){
+            return false;
+        }
+        else{
+            int j=0;
+            int size = stack.size();
+            while(j<size){
+                if(stack.peek() == '+' || stack.peek() == '-' || stack.peek() == '*' || stack.peek() == '/'){
+                    stack.pop();
+                }
+                j++;
+            }
+            if(stack.isEmpty()){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+}
+
