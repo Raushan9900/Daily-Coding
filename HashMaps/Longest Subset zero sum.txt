@@ -19,26 +19,32 @@ The five elements that form the longest subarray that sum up to zero are: -387, 
 
 
 
-import java.util.HashMap;
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
 public class Solution {
 
-	public static int lengthOfLongestSubsetWithZeroSum(int arr[]) {
-		// Write your code here
+	public static int LongestSubsetWithZeroSum(ArrayList<Integer> arr) {
+
+		// Write your code here.
         HashMap<Integer,Integer> hm = new HashMap<>();
-        int sum=0;
-        int max = Integer.MIN_VALUE;
-        for(int i=0;i<arr.length;i++){
-            sum+=arr[i];
-            if(sum ==0){
+        int sum = 0;
+        int max = 0;
+        for(int i=0;i<arr.size();i++){
+            sum+=arr.get(i);
+            if(sum == 0){
                 max = i+1;
             }
             if(hm.containsKey(sum)){
-                int count = i - hm.get(sum);
+                int count = i-hm.get(sum);
                 if(count>max){
                     max = count;
                 }
             }
-            hm.put(sum,i);
+            else{
+                hm.put(sum,i);
+            }
             
         }
         return max;
